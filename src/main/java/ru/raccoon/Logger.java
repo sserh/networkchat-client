@@ -9,20 +9,15 @@ import java.time.format.DateTimeFormatter;
 public class Logger {
 
     String logFileName;
-    private static Logger instance;
 
     private Logger(){}
 
-    public static Logger getInstance() {
-        if (instance == null) {
-            synchronized (Logger.class) {
-                if (instance == null) {
-                    instance = new Logger();
-                }
+    private static final class InstanceHolder {
+        private static final Logger instance = new Logger();
+    }
 
-            }
-        }
-        return instance;
+    public static Logger getInstance() {
+        return InstanceHolder.instance;
     }
 
     public boolean isLogFileExists() {
